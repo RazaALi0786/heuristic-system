@@ -1,5 +1,7 @@
+"use client";
 import ReusableCardGrid from "@/components/ReusableCardGrid";
 import ReviewCard from "@/components/ReviewCard";
+import { useRouter } from "next/navigation";
 import { ChartNoAxesCombined, MoveRight, Settings, Users } from "lucide-react";
 const values = [
   {
@@ -25,25 +27,34 @@ const values = [
 const reviews = [
   {
     rating: 5,
-    description: "Heuristic System transformed our operations completely. Their expertise in digital transformation helped us increase efficiency by 300%.",
+    description:
+      "Heuristic System transformed our operations completely. Their expertise in digital transformation helped us increase efficiency by 300%.",
     name: "Sarah Johnson",
-    position: "CEO, TechFlow Inc."
+    position: "CEO, TechFlow Inc.",
   },
   {
     rating: 4,
-    description: "Working with Heuristic System was seamless. Their team understood our requirements quickly and delivered a scalable solution that boosted our customer engagement.",
+    description:
+      "Working with Heuristic System was seamless. Their team understood our requirements quickly and delivered a scalable solution that boosted our customer engagement.",
     name: "Michael Lee",
-    position: "Product Manager, InnovateX"
+    position: "Product Manager, InnovateX",
   },
   {
     rating: 5,
-    description: "The dedication and professionalism shown by Heuristic System were outstanding. They exceeded our expectations and delivered results ahead of schedule.",
+    description:
+      "The dedication and professionalism shown by Heuristic System were outstanding. They exceeded our expectations and delivered results ahead of schedule.",
     name: "Priya Sharma",
-    position: "CTO, Nexora Solutions"
-  }
+    position: "CTO, Nexora Solutions",
+  },
 ];
 
 export default function Home() {
+  const router = useRouter();
+
+  const goToAbout = () => {
+    router.push("/about");
+  };
+
   return (
     <>
       {/* First Section with faded background */}
@@ -101,7 +112,9 @@ export default function Home() {
 
       {/* Story section */}
       <div className="flex flex-col items-center justify-center p-[2rem]  sm:p-[4rem] pb-[6rem] z-10 gap-4  bg-gray-100">
-        <h1 className="text-4xl font-bold text-black-800 ">What Our Clients Say</h1>
+        <h1 className="text-4xl font-bold text-black-800 ">
+          What Our Clients Say
+        </h1>
         <h3 className="text-xl text-gray-600">
           Success stories from businesses we've helped transform
         </h3>
@@ -112,29 +125,33 @@ export default function Home() {
 
       {/* Last Section */}
       <div className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] z-10 gap-4">
-        <h1 className="text-4xl font-bold text-black-800 ">Ready to Transform Your Business?</h1>
+        <h1 className="text-4xl font-bold text-black-800 ">
+          Ready to Transform Your Business?
+        </h1>
         <h3 className="text-xl text-gray-600">
-          Join hundreds of successful companies that trust Heuristic System with their technology needs.
+          Join hundreds of successful companies that trust Heuristic System with
+          their technology needs.
         </h3>
         <div className="flex space-x-4 sm:flex-row flex-col py-6">
-            {/* Primary Button */}
-            <button
-              className="mt-8 bg-orange-500 w-[17rem] text-white px-6 py-3 rounded-lg 
+          {/* Primary Button */}
+          <button
+            className="mt-8 bg-orange-500 w-[17rem] text-white px-6 py-3 rounded-lg 
                  hover:bg-orange-600 hover:scale-105 
                  transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
-            >
-              Start Your Transformation <MoveRight />
-            </button>
+          >
+            Start Your Transformation <MoveRight />
+          </button>
 
-            {/* Secondary Button */}
-            <button
-              className="mt-8 border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg 
+          {/* Secondary Button */}
+          <button
+            onClick={goToAbout}
+            className="mt-8 border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg 
                      hover:bg-gray-100 hover:scale-105 
                      transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer"
-            >
-              View Career Opportunities
-            </button>
-          </div>
+          >
+            View Career Opportunities
+          </button>
+        </div>
       </div>
     </>
   );
