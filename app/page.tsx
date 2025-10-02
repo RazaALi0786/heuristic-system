@@ -52,7 +52,7 @@ export default function Home() {
   const router = useRouter();
 
   const goToAbout = () => {
-    router.push("/about");
+    router.push("/jobs");
   };
 
   return (
