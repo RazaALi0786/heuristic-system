@@ -1,3 +1,4 @@
+import ReusableCardGrid from "@/components/ReusableCardGrid";
 import { Target, Users, Award, Lightbulb, Eye } from "lucide-react";
 
 export default function About() {
@@ -91,7 +92,7 @@ export default function About() {
           </p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto px-6">
-          {values.map((value, index) => (
+          {/* {values.map((value, index) => (
             <div
               key={index}
               className="flex flex-col items-center text-center p-8 bg-white shadow-lg rounded-2xl hover:shadow-xl transition-shadow group border border-1px border-gray-300 hover:border-orange-200 transition"
@@ -104,7 +105,8 @@ export default function About() {
               </h3>
               <p className="mt-2 text-gray-800">{value.description}</p>
             </div>
-          ))}
+          ))} */}
+          <ReusableCardGrid values={values} />
         </div>
       </section>
 
