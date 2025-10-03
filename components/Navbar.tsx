@@ -29,7 +29,7 @@ export default function Navbar() {
         </Link>
 
         {/* Navigation Links */}
-        <div className="flex space-x-8 text-gray-700 font-medium">
+        <div className="flex space-x-8 text-gray-700 font-medium mr-4">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
             return (
