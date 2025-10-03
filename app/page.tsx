@@ -67,7 +67,7 @@ export default function Home() {
 
         {/* Content */}
         <div className="flex flex-col items-center justify-center relative z-10 max-w-5xl px-4">
-          <h1 className="text-5xl font-bold text-gray-600">
+          <h1 className="text-5xl font-bold text-gray-500">
             Empowering Business Success Through <br />
             <span className="text-orange-500">Innovative Technology</span>
           </h1>
@@ -101,8 +101,10 @@ export default function Home() {
 
       {/* Next Section (no fade applied) */}
       <div className="flex flex-col items-center justify-center p-[4rem] z-10 gap-4 mb-4">
-        <h1 className="text-4xl font-bold text-black-800">Our Services</h1>
-        <h3 className="text-xl text-gray-600">
+        <h1 className="text-4xl font-bold text-gray-900">
+          Our <span className="text-orange-500">Services</span>
+        </h1>
+        <h3 className="text-xl text-gray-500">
           Comprehensive technology solutions tailored to your business needs
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]">
@@ -112,10 +114,10 @@ export default function Home() {
 
       {/* Story section */}
       <div className="flex flex-col items-center justify-center p-[2rem]  sm:p-[4rem] pb-[6rem] z-10 gap-4  bg-gray-100">
-        <h1 className="text-4xl font-bold text-black-800 ">
-          What Our Clients Say
+        <h1 className="text-4xl font-bold text-gray-900 ">
+          What Our <span className="text-orange-500">Clients Say</span>
         </h1>
-        <h3 className="text-xl text-gray-600">
+        <h3 className="text-xl text-gray-500">
           Success stories from businesses we've helped transform
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]">
@@ -125,10 +127,11 @@ export default function Home() {
 
       {/* Last Section */}
       <div className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] z-10 gap-4">
-        <h1 className="text-4xl font-bold text-black-800 ">
-          Ready to Transform Your Business?
+        <h1 className="text-4xl font-bold text-gray-900 ">
+          Ready to{" "}
+          <span className="text-orange-500">Transform Your Business?</span>
         </h1>
-        <h3 className="text-xl text-gray-600">
+        <h3 className="text-xl text-gray-500">
           Join hundreds of successful companies that trust Heuristic System with
           their technology needs.
         </h3>
