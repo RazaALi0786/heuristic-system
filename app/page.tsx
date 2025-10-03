@@ -67,11 +67,11 @@ export default function Home() {
 
         {/* Content */}
         <div className="flex flex-col items-center justify-center relative z-10 max-w-5xl px-4">
-          <h1 className="text-5xl font-bold text-gray-500">
+          <h1 className="text-5xl font-bold text-gray-900">
             Empowering Business Success Through <br />
             <span className="text-orange-500">Innovative Technology</span>
           </h1>
-          <p className="mt-6 text-xl max-w-2xl text-gray-700">
+          <p className="mt-6 text-xl max-w-2xl text-gray-500">
             Transform your organization with cutting-edge technology solutions
             and expert consulting. We deliver strategic insights that drive
             growth and operational excellence.
