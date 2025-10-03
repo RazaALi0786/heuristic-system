@@ -147,7 +147,7 @@ export default function Home() {
             onClick={goToAbout}
             className="mt-8 border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg 
                      hover:bg-gray-100 hover:scale-105 
-                     transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer"
+                     transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer "
           >
             View Career Opportunities
           </button>
