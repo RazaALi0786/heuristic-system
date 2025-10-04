@@ -54,137 +54,173 @@ export default function Home() {
   const router = useRouter();
   const goToAbout = () => router.push("/jobs");
 
-  // Animation variants
-  const fadeUp = {
+  // --- Animation Variants ---
+  const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
+  const staggerContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
   return (
     <>
-      {/* Hero Section */}
+      {/* HERO SECTION */}
       <section
-        className="relative flex flex-col items-center justify-center text-center py-24 
+        className="relative flex flex-col items-center justify-center text-center py-28
                bg-[url('./assets/homepage-img.jpg')] bg-cover bg-center bg-no-repeat"
       >
-        <div className="absolute inset-0 bg-white/80"></div>
+        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="flex flex-col items-center justify-center relative z-10 max-w-5xl px-4"
+          className="relative z-10 flex flex-col items-center max-w-5xl px-4"
         >
-          <h1 className="text-5xl font-bold text-gray-600">
+          <motion.h1
+            className="text-5xl sm:text-6xl font-semibold text-gray-700 leading-tight"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
             Empowering Business Success Through <br />
-            <span className="text-orange-500">Innovative Technology</span>
-          </h1>
-          <p className="mt-6 text-xl max-w-2xl text-gray-700">
-            Transform your organization with cutting-edge technology solutions
-            and expert consulting. We deliver strategic insights that drive
-            growth and operational excellence.
-          </p>
+            <span className="text-orange-500 font-bold">Innovative Technology</span>
+          </motion.h1>
 
-          <div className="flex space-x-4 sm:flex-row flex-col">
+          <motion.p
+            className="mt-6 text-lg sm:text-xl text-gray-700 max-w-2xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.2 }}
+          >
+            Transform your organization with cutting-edge technology solutions and expert consulting. 
+            We deliver strategic insights that drive growth and operational excellence.
+          </motion.p>
+
+          <motion.div
+            className="flex sm:flex-row flex-col gap-4 mt-10"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className="mt-8 bg-orange-500 w-[10rem] text-white px-6 py-3 rounded-lg 
-                     hover:bg-orange-600 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+              variants={fadeInUp}
+              whileHover={{
+                scale: 1.03,
+                backgroundColor: "#EA580C",
+                transition: { duration: 0.3 },
+              }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-orange-500 w-[10rem] text-white px-6 py-3 rounded-lg shadow-md 
+              transition-all duration-300"
             >
               View Jobs
             </motion.button>
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-              className="mt-8 border border-gray-400 w-[10rem] text-gray-700 px-6 py-3 rounded-lg 
-                     hover:bg-gray-100 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+              variants={fadeInUp}
+              whileHover={{
+                scale: 1.03,
+                backgroundColor: "#f9fafb",
+                transition: { duration: 0.3 },
+              }}
+              whileTap={{ scale: 0.98 }}
+              className="border border-gray-400 w-[10rem] text-gray-700 px-6 py-3 rounded-lg shadow-sm"
             >
               Learn More
             </motion.button>
-          </div>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* Services Section */}
-      <motion.div
-        variants={fadeUp}
+      {/* SERVICES SECTION */}
+      <motion.section
+        variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="flex flex-col items-center justify-center p-[4rem] z-10 gap-4 mb-4"
+        className="flex flex-col items-center justify-center p-[4rem] gap-4 mb-4"
       >
-        <h1 className="text-4xl font-bold text-black-800">Our Services</h1>
-        <h3 className="text-xl text-gray-600">
+        <motion.h1 variants={fadeInUp} className="text-4xl font-bold text-gray-800">
+          Our Services
+        </motion.h1>
+        <motion.h3 variants={fadeInUp} className="text-xl text-gray-600">
           Comprehensive technology solutions tailored to your business needs
-        </h3>
+        </motion.h3>
+
         <motion.div
+          variants={fadeInUp}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]"
-          variants={fadeUp}
         >
           <ReusableCardGrid values={values} />
         </motion.div>
-      </motion.div>
+      </motion.section>
 
-      {/* Testimonials */}
-      <motion.div
-        variants={fadeUp}
+      {/* REVIEWS SECTION */}
+      <motion.section
+        variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] z-10 gap-4 bg-gray-100"
+        className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] gap-4 bg-gray-100"
       >
-        <h1 className="text-4xl font-bold text-black-800 ">
+        <motion.h1 variants={fadeInUp} className="text-4xl font-bold text-gray-800">
           What Our Clients Say
-        </h1>
-        <h3 className="text-xl text-gray-600">
+        </motion.h1>
+        <motion.h3 variants={fadeInUp} className="text-xl text-gray-600">
           Success stories from businesses we've helped transform
-        </h3>
+        </motion.h3>
+
         <motion.div
+          variants={fadeInUp}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]"
-          variants={fadeUp}
         >
           <ReviewCard values={reviews} />
         </motion.div>
-      </motion.div>
+      </motion.section>
 
-      {/* Call to Action */}
-      <motion.div
-        variants={fadeUp}
+      {/* CTA SECTION */}
+      <motion.section
+        variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] z-10 gap-4"
+        className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] gap-4"
       >
-        <h1 className="text-4xl font-bold text-black-800 ">
+        <motion.h1 variants={fadeInUp} className="text-4xl font-bold text-gray-800">
           Ready to Transform Your Business?
-        </h1>
-        <h3 className="text-xl text-gray-600">
-          Join hundreds of successful companies that trust Heuristic System with
-          their technology needs.
-        </h3>
-        <div className="flex space-x-4 sm:flex-row flex-col py-6">
+        </motion.h1>
+        <motion.h3 variants={fadeInUp} className="text-xl text-gray-600">
+          Join hundreds of successful companies that trust Heuristic System with their technology needs.
+        </motion.h3>
+
+        <motion.div variants={fadeInUp} className="flex sm:flex-row flex-col gap-4 mt-8">
           <motion.button
-            whileHover={{ scale: 1.05, backgroundColor: "#EA580C" }}
-            whileTap={{ scale: 0.97 }}
-            className="mt-8 bg-orange-500 w-[17rem] text-white px-6 py-3 rounded-lg 
-                 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
+            whileHover={{ scale: 1.03, backgroundColor: "#EA580C" }}
+            whileTap={{ scale: 0.98 }}
+            className="bg-orange-500 w-[17rem] text-white px-6 py-3 rounded-lg shadow-md 
+              flex items-center justify-center gap-2"
           >
             Start Your Transformation <MoveRight />
           </motion.button>
 
           <motion.button
             onClick={goToAbout}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            className="mt-8 border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg 
-                     hover:bg-gray-100 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
+            whileHover={{ scale: 1.03, backgroundColor: "#f9fafb" }}
+            whileTap={{ scale: 0.98 }}
+            className="border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg shadow-sm"
           >
             View Career Opportunities
           </motion.button>
-        </div>
-      </motion.div>
+        </motion.div>
+      </motion.section>
     </>
   );
 }
