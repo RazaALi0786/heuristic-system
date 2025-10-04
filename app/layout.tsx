@@ -1,7 +1,8 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
+import { ToastProvider, ToastViewport } from "@/components/toast";
+import { Toaster } from "@/components/Toaster";
 export const metadata = {
   title: "Heuristic System",
   description:
@@ -16,9 +17,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white text-gray-900">
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        <ToastProvider swipeDirection="right">
+          <Navbar />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+          {/* Toast container */}
+          <Toaster /> {/* <-- This renders the active toasts */}
+          <ToastViewport />
+        </ToastProvider>
       </body>
     </html>
   );

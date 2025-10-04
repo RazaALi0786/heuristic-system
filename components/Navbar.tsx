@@ -16,15 +16,20 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50">
-      <div className="w-full flex justify-between items-center px-8">
+    <nav className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50 h-20">
+      <div className="w-full h-full flex justify-between items-center px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <Image src={Logo} alt="Heuristic System Logo" className="w-28 h-28" />
+        <Link href="/" className="flex items-center h-full">
+          <Image
+            src={Logo}
+            alt="Heuristic System Logo"
+            className="h-full w-auto max-h-36 object-contain"
+            priority
+          />
         </Link>
 
         {/* Navigation Links */}
-        <div className="flex space-x-8 text-gray-700 font-medium">
+        <div className="flex space-x-8 text-gray-700 font-medium mr-4">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
             return (
