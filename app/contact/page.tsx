@@ -1,8 +1,7 @@
 "use client";
+import { motion } from "framer-motion";
 import ContactForm from "@/components/ContactForm";
 import { useState } from "react";
-import Link from "next/link";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/Button";
 import {
   Card,
@@ -16,38 +15,27 @@ import { Textarea } from "@/components/Textarea";
 import { Label } from "@/components/Label";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+
 export default function Contact() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = async (e: React.FormEvent) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate API call - in a real app, this would submit to /api/contact
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
       toast({
         title: "Message Sent Successfully!",
         description:
           "Thank you for contacting us. We'll get back to you within 24 hours.",
       });
-
-      // Reset form
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       toast({
@@ -59,6 +47,7 @@ export default function Contact() {
       setIsSubmitting(false);
     }
   };
+
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6 text-orange-500" />,
@@ -85,39 +74,85 @@ export default function Contact() {
       description: "EST timezone",
     },
   ];
+
+  // ✨ Motion Variants
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
+  };
+
+  const staggerContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="pt-20 pb-0 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 animate-fade-in ">
-              Get In <span className="text-orange-500 ">Touch</span>
-            </h1>
-            <p className="text-xl text-muted-gray-900 mb-8 max-w-3xl mx-auto animate-fade-in text-gray-500">
-              Ready to transform your business? Let's discuss how our innovative
-              technology solutions can help you achieve your goals.
-            </p>
-          </div>
+      {/* HERO SECTION */}
+      <motion.section
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="pt-20 pb-0 bg-white text-center"
+      >
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.h1
+            className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            Get In <span className="text-orange-500">Touch</span>
+          </motion.h1>
+          <motion.p
+            className="text-lg text-gray-500 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.1 }}
+          >
+            Ready to transform your business? Let's discuss how our innovative
+            technology solutions can help you achieve your goals.
+          </motion.p>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Contact Form & Info */}
-      <section className="py-20  ">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <Card className="border-gray-200 shadow-medium">
+      {/* CONTACT FORM + INFO */}
+      <motion.section
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="py-20"
+      >
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* CONTACT FORM */}
+          <motion.div variants={fadeInUp}>
+            <Card className="border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
               <CardHeader>
-                <CardTitle className="text-2xl">Send us a Message</CardTitle>
+                <CardTitle className="text-2xl font-semibold">
+                  Send us a Message
+                </CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as
-                  possible.
+                  Fill out the form below and we'll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
+                <motion.form
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                  variants={staggerContainer}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <motion.div variants={fadeInUp}>
                     <Label htmlFor="name">Full Name</Label>
                     <Input
                       id="name"
@@ -126,12 +161,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="mt-1"
                       placeholder="Enter your full name"
+                      className="mt-1"
                     />
-                  </div>
+                  </motion.div>
 
-                  <div>
+                  <motion.div variants={fadeInUp}>
                     <Label htmlFor="email">Email Address</Label>
                     <Input
                       id="email"
@@ -140,12 +175,12 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="mt-1"
                       placeholder="Enter your email address"
+                      className="mt-1"
                     />
-                  </div>
+                  </motion.div>
 
-                  <div>
+                  <motion.div variants={fadeInUp}>
                     <Label htmlFor="message">Message</Label>
                     <Textarea
                       id="message"
@@ -153,39 +188,42 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleInputChange}
                       required
-                      className="mt-1 min-h-[120px]"
                       placeholder="Tell us about your project or how we can help you..."
+                      className="mt-1 min-h-[120px]"
                     />
-                  </div>
+                  </motion.div>
 
-                  <Button
-                    type="submit"
-                    variant="hero"
-                    className="w-full cursor-pointer"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                    <Send className="ml-2 h-4 w-4" />
-                  </Button>
-                </form>
+                  <motion.div variants={fadeInUp}>
+                    <Button
+                      type="submit"
+                      variant="hero"
+                      className="w-full cursor-pointer flex items-center justify-center"
+                      disabled={isSubmitting}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                      <Send className="ml-2 h-4 w-4" />
+                    </Button>
+                  </motion.div>
+                </motion.form>
               </CardContent>
             </Card>
+          </motion.div>
 
-            {/* Contact Information */}
-            <div className="space-y-6">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  Contact <span className="text-orange-500">Information</span>
-                </h2>
-                <p className="text-lg text-gray-500 mb-8">
-                  We're here to help and answer any question you might have. We
-                  look forward to hearing from you.
-                </p>
-              </div>
+          {/* CONTACT INFORMATION */}
+          <motion.div variants={fadeInUp} className="space-y-6">
+            <h2 className="text-3xl font-bold text-gray-900">
+              Contact <span className="text-orange-500">Information</span>
+            </h2>
+            <p className="text-lg text-gray-500 mb-8">
+              We're here to help and answer any question you might have.
+            </p>
 
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <Card key={index} className="border-gray-200 shadow-soft">
+            <motion.div variants={staggerContainer} className="space-y-6">
+              {contactInfo.map((info, index) => (
+                <motion.div key={index} variants={fadeInUp}>
+                  <Card className="border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
                         <div className="flex-shrink-0 bg-gray-100 p-2 rounded-md">
@@ -196,88 +234,65 @@ export default function Contact() {
                             {info.title}
                           </h3>
                           <p className="text-gray-700 mb-1">{info.content}</p>
-                          <p className="text-sm text-gray-500">
-                            {info.description}
-                          </p>
+                          <p className="text-sm text-gray-500">{info.description}</p>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
-                ))}
-              </div>
-            </div>
-          </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Frequently{" "}
-              <span className="text-orange-500">Asked Questions</span>
-            </h2>
-            <p className="text-xl text-gray-500">
-              Quick answers to common questions about our services
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            <Card className="border-border shadow-soft">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  How long does a typical consulting project take?
-                </h3>
-                <p className="text-gray-500">
-                  Project timelines vary based on scope and complexity. Most
-                  consulting engagements range from 3-12 months, with initial
-                  assessments typically completed within 2-4 weeks.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border shadow-soft">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  Do you work with companies of all sizes?
-                </h3>
-                <p className="text-gray-500">
-                  Yes, we work with organizations ranging from startups to
-                  Fortune 500 companies. Our solutions are tailored to meet the
-                  specific needs and budget of each client.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border shadow-soft">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  What industries do you specialize in?
-                </h3>
-                <p className="text-gray-500">
-                  We have experience across various industries including
-                  healthcare, finance, retail, manufacturing, and technology.
-                  Our consultants bring deep expertise in multiple sectors.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-border shadow-soft">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-gray-900 mb-2">
-                  How do you ensure project success?
-                </h3>
-                <p className="text-gray-500">
-                  We follow proven methodologies, maintain regular communication
-                  with stakeholders, set clear milestones, and provide ongoing
-                  support throughout the implementation process.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+      {/* FAQ SECTION */}
+      <motion.section
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="py-20 bg-gray-100"
+      >
+        <div className="max-w-4xl mx-auto px-6 text-center mb-16">
+          <motion.h2 variants={fadeInUp} className="text-4xl font-bold text-gray-900 mb-4">
+            Frequently <span className="text-orange-500">Asked Questions</span>
+          </motion.h2>
+          <motion.p variants={fadeInUp} className="text-lg text-gray-500">
+            Quick answers to common questions about our services
+          </motion.p>
         </div>
-      </section>
+
+        <motion.div variants={staggerContainer} className="max-w-4xl mx-auto px-6 space-y-6">
+          {[
+            {
+              q: "How long does a typical consulting project take?",
+              a: "Project timelines vary based on scope and complexity. Most engagements range from 3-12 months.",
+            },
+            {
+              q: "Do you work with companies of all sizes?",
+              a: "Yes, we partner with startups to Fortune 500s, adapting our services to each client’s scale and budget.",
+            },
+            {
+              q: "What industries do you specialize in?",
+              a: "We work across healthcare, finance, retail, manufacturing, and technology sectors.",
+            },
+            {
+              q: "How do you ensure project success?",
+              a: "We follow proven methodologies, maintain communication, and provide ongoing support.",
+            },
+          ].map((faq, index) => (
+            <motion.div key={index} variants={fadeInUp}>
+              <Card className="border-border shadow-sm hover:shadow-md transition-all duration-300">
+                <CardContent className="p-6 text-left">
+                  <h3 className="font-semibold text-gray-900 mb-2">{faq.q}</h3>
+                  <p className="text-gray-500">{faq.a}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
     </div>
   );
 }
