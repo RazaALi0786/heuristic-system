@@ -1,8 +1,10 @@
 "use client";
+import { motion } from "framer-motion";
 import ReusableCardGrid from "@/components/ReusableCardGrid";
 import ReviewCard from "@/components/ReviewCard";
 import { useRouter } from "next/navigation";
 import { ChartNoAxesCombined, MoveRight, Settings, Users } from "lucide-react";
+
 const values = [
   {
     icon: <Settings className="h-10 w-10 text-orange-500" />,
@@ -50,23 +52,29 @@ const reviews = [
 
 export default function Home() {
   const router = useRouter();
+  const goToAbout = () => router.push("/jobs");
 
-  const goToAbout = () => {
-    router.push("/jobs");
+  // Animation variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
   return (
     <>
-      {/* First Section with faded background */}
+      {/* Hero Section */}
       <section
         className="relative flex flex-col items-center justify-center text-center py-24 
                bg-[url('./assets/homepage-img.jpg')] bg-cover bg-center bg-no-repeat"
       >
-        {/* Faded Overlay (only inside this section) */}
         <div className="absolute inset-0 bg-white/80"></div>
 
-        {/* Content */}
-        <div className="flex flex-col items-center justify-center relative z-10 max-w-5xl px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="flex flex-col items-center justify-center relative z-10 max-w-5xl px-4"
+        >
           <h1 className="text-5xl font-bold text-gray-600">
             Empowering Business Success Through <br />
             <span className="text-orange-500">Innovative Technology</span>
@@ -78,53 +86,77 @@ export default function Home() {
           </p>
 
           <div className="flex space-x-4 sm:flex-row flex-col">
-            {/* Primary Button */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
               className="mt-8 bg-orange-500 w-[10rem] text-white px-6 py-3 rounded-lg 
-                     hover:bg-orange-600 hover:scale-105 
-                     transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer"
+                     hover:bg-orange-600 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
             >
               View Jobs
-            </button>
+            </motion.button>
 
-            {/* Secondary Button */}
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
               className="mt-8 border border-gray-400 w-[10rem] text-gray-700 px-6 py-3 rounded-lg 
-                     hover:bg-gray-100 hover:scale-105 
-                     transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer"
+                     hover:bg-gray-100 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
             >
               Learn More
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Next Section (no fade applied) */}
-      <div className="flex flex-col items-center justify-center p-[4rem] z-10 gap-4 mb-4">
+      {/* Services Section */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="flex flex-col items-center justify-center p-[4rem] z-10 gap-4 mb-4"
+      >
         <h1 className="text-4xl font-bold text-black-800">Our Services</h1>
         <h3 className="text-xl text-gray-600">
           Comprehensive technology solutions tailored to your business needs
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]"
+          variants={fadeUp}
+        >
           <ReusableCardGrid values={values} />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      {/* Story section */}
-      <div className="flex flex-col items-center justify-center p-[2rem]  sm:p-[4rem] pb-[6rem] z-10 gap-4  bg-gray-100">
+      {/* Testimonials */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] z-10 gap-4 bg-gray-100"
+      >
         <h1 className="text-4xl font-bold text-black-800 ">
           What Our Clients Say
         </h1>
         <h3 className="text-xl text-gray-600">
           Success stories from businesses we've helped transform
         </h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-[4rem]"
+          variants={fadeUp}
+        >
           <ReviewCard values={reviews} />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      {/* Last Section */}
-      <div className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] z-10 gap-4">
+      {/* Call to Action */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] z-10 gap-4"
+      >
         <h1 className="text-4xl font-bold text-black-800 ">
           Ready to Transform Your Business?
         </h1>
@@ -133,26 +165,26 @@ export default function Home() {
           their technology needs.
         </h3>
         <div className="flex space-x-4 sm:flex-row flex-col py-6">
-          {/* Primary Button */}
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05, backgroundColor: "#EA580C" }}
+            whileTap={{ scale: 0.97 }}
             className="mt-8 bg-orange-500 w-[17rem] text-white px-6 py-3 rounded-lg 
-                 hover:bg-orange-600 hover:scale-105 
-                 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
+                 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer flex items-center justify-center gap-2"
           >
             Start Your Transformation <MoveRight />
-          </button>
+          </motion.button>
 
-          {/* Secondary Button */}
-          <button
+          <motion.button
             onClick={goToAbout}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
             className="mt-8 border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg 
-                     hover:bg-gray-100 hover:scale-105 
-                     transition-all duration-300 ease-in-out shadow-md hover:shadow-lg cursor-pointer"
+                     hover:bg-gray-100 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer"
           >
             View Career Opportunities
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
