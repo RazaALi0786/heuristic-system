@@ -7,19 +7,19 @@ import { ChartNoAxesCombined, MoveRight, Settings, Users } from "lucide-react";
 
 const values = [
   {
-    icon: <Settings className="h-10 w-10 text-orange-500" />,
+    icon: <Settings className="w-10 h-10 text-orange-500" />,
     title: "Technology Consulting",
     description:
       "Delivering exceptional results with attention to detail and a commitment to quality.",
   },
   {
-    icon: <Users className="h-10 w-10 text-orange-500" />,
+    icon: <Users className="w-10 h-10 text-orange-500" />,
     title: "Digital Transformation",
     description:
       "Embracing cutting-edge technologies and creative solutions to solve challenges.",
   },
   {
-    icon: <ChartNoAxesCombined className="h-10 w-10 text-orange-500" />,
+    icon: <ChartNoAxesCombined className="w-10 h-10 text-orange-500" />,
     title: "Business Intelligence",
     description:
       "Partnering closely with clients to achieve shared success and sustainable growth.",
@@ -57,7 +57,11 @@ export default function Home() {
   // --- Animation Variants ---
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   const staggerContainer = {
@@ -85,27 +89,30 @@ export default function Home() {
           className="relative z-10 flex flex-col items-center max-w-5xl px-4"
         >
           <motion.h1
-            className="text-5xl sm:text-6xl font-semibold text-gray-700 leading-tight"
+            className="text-5xl font-semibold leading-tight text-gray-700 sm:text-6xl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
             Empowering Business Success Through <br />
-            <span className="text-orange-500 font-bold">Innovative Technology</span>
+            <span className="font-bold text-orange-500">
+              Innovative Technology
+            </span>
           </motion.h1>
 
           <motion.p
-            className="mt-6 text-lg sm:text-xl text-gray-700 max-w-2xl"
+            className="max-w-2xl mt-6 text-lg text-gray-700 sm:text-xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 0.2 }}
           >
-            Transform your organization with cutting-edge technology solutions and expert consulting. 
-            We deliver strategic insights that drive growth and operational excellence.
+            Transform your organization with cutting-edge technology solutions
+            and expert consulting. We deliver strategic insights that drive
+            growth and operational excellence.
           </motion.p>
 
           <motion.div
-            className="flex sm:flex-row flex-col gap-4 mt-10"
+            className="flex flex-col gap-4 mt-10 sm:flex-row"
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
@@ -148,7 +155,10 @@ export default function Home() {
         viewport={{ once: true }}
         className="flex flex-col items-center justify-center p-[4rem] gap-4 mb-4"
       >
-        <motion.h1 variants={fadeInUp} className="text-4xl font-bold text-gray-800">
+        <motion.h1
+          variants={fadeInUp}
+          className="text-4xl font-bold text-gray-800"
+        >
           Our Services
         </motion.h1>
         <motion.h3 variants={fadeInUp} className="text-xl text-gray-600">
@@ -171,7 +181,10 @@ export default function Home() {
         viewport={{ once: true }}
         className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] gap-4 bg-gray-100"
       >
-        <motion.h1 variants={fadeInUp} className="text-4xl font-bold text-gray-800">
+        <motion.h1
+          variants={fadeInUp}
+          className="text-4xl font-bold text-gray-800"
+        >
           What Our Clients Say
         </motion.h1>
         <motion.h3 variants={fadeInUp} className="text-xl text-gray-600">
@@ -194,14 +207,21 @@ export default function Home() {
         viewport={{ once: true }}
         className="flex flex-col items-center justify-center p-[2rem] sm:p-[4rem] pb-[6rem] gap-4"
       >
-        <motion.h1 variants={fadeInUp} className="text-4xl font-bold text-gray-800">
+        <motion.h1
+          variants={fadeInUp}
+          className="text-4xl font-bold text-gray-800"
+        >
           Ready to Transform Your Business?
         </motion.h1>
         <motion.h3 variants={fadeInUp} className="text-xl text-gray-600">
-          Join hundreds of successful companies that trust Heuristic System with their technology needs.
+          Join hundreds of successful companies that trust Heuristic System with
+          their technology needs.
         </motion.h3>
 
-        <motion.div variants={fadeInUp} className="flex sm:flex-row flex-col gap-4 mt-8">
+        <motion.div
+          variants={fadeInUp}
+          className="flex flex-col gap-4 mt-8 sm:flex-row"
+        >
           <motion.button
             whileHover={{ scale: 1.03, backgroundColor: "#EA580C" }}
             whileTap={{ scale: 0.98 }}

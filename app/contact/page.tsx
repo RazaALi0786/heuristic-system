@@ -18,7 +18,11 @@ import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 
 export default function Contact() {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
@@ -50,25 +54,25 @@ export default function Contact() {
 
   const contactInfo = [
     {
-      icon: <Mail className="h-6 w-6 text-orange-500" />,
+      icon: <Mail className="w-6 h-6 text-orange-500" />,
       title: "Email Us",
       content: "contact@heuristicsystem.com",
       description: "Send us an email anytime",
     },
     {
-      icon: <Phone className="h-6 w-6 text-orange-500" />,
+      icon: <Phone className="w-6 h-6 text-orange-500" />,
       title: "Call Us",
       content: "+1 (555) 123-4567",
       description: "Mon-Fri from 8am to 5pm",
     },
     {
-      icon: <MapPin className="h-6 w-6 text-orange-500" />,
+      icon: <MapPin className="w-6 h-6 text-orange-500" />,
       title: "Visit Us",
       content: "123 Tech Street, Innovation City, IC 12345",
       description: "Our headquarters",
     },
     {
-      icon: <Clock className="h-6 w-6 text-orange-500" />,
+      icon: <Clock className="w-6 h-6 text-orange-500" />,
       title: "Business Hours",
       content: "Monday - Friday: 8:00 AM - 5:00 PM",
       description: "EST timezone",
@@ -101,11 +105,11 @@ export default function Contact() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="pt-20 pb-0 bg-white text-center"
+        className="pt-20 pb-0 text-center bg-white"
       >
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="px-6 mx-auto max-w-7xl">
           <motion.h1
-            className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
+            className="mb-6 text-4xl font-bold text-gray-900 md:text-6xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
@@ -113,7 +117,7 @@ export default function Contact() {
             Get In <span className="text-orange-500">Touch</span>
           </motion.h1>
           <motion.p
-            className="text-lg text-gray-500 max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto text-lg text-gray-500"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 0.1 }}
@@ -132,16 +136,17 @@ export default function Contact() {
         viewport={{ once: true }}
         className="py-20"
       >
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 gap-12 px-6 mx-auto max-w-7xl lg:grid-cols-2">
           {/* CONTACT FORM */}
           <motion.div variants={fadeInUp}>
-            <Card className="border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
+            <Card className="transition-all duration-300 border-gray-200 shadow-md hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="text-2xl font-semibold">
                   Send us a Message
                 </CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you as soon as possible.
+                  Fill out the form below and we'll get back to you as soon as
+                  possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -194,17 +199,17 @@ export default function Contact() {
                   </motion.div>
 
                   <motion.div variants={fadeInUp}>
-                    <Button
+                    <motion.button
                       type="submit"
                       variant="hero"
-                      className="w-full cursor-pointer flex items-center justify-center"
+                      className="flex items-center justify-center w-full cursor-pointer"
                       disabled={isSubmitting}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       {isSubmitting ? "Sending..." : "Send Message"}
-                      <Send className="ml-2 h-4 w-4" />
-                    </Button>
+                      <Send className="w-4 h-4 ml-2" />
+                    </motion.button>
                   </motion.div>
                 </motion.form>
               </CardContent>
@@ -216,25 +221,27 @@ export default function Contact() {
             <h2 className="text-3xl font-bold text-gray-900">
               Contact <span className="text-orange-500">Information</span>
             </h2>
-            <p className="text-lg text-gray-500 mb-8">
+            <p className="mb-8 text-lg text-gray-500">
               We're here to help and answer any question you might have.
             </p>
 
             <motion.div variants={staggerContainer} className="space-y-6">
               {contactInfo.map((info, index) => (
                 <motion.div key={index} variants={fadeInUp}>
-                  <Card className="border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
+                  <Card className="transition-all duration-300 border-gray-200 shadow-sm hover:shadow-md">
                     <CardContent className="p-6">
                       <div className="flex items-start space-x-4">
-                        <div className="flex-shrink-0 bg-gray-100 p-2 rounded-md">
+                        <div className="flex-shrink-0 p-2 bg-gray-100 rounded-md">
                           {info.icon}
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-900 mb-1">
+                          <h3 className="mb-1 font-semibold text-gray-900">
                             {info.title}
                           </h3>
-                          <p className="text-gray-700 mb-1">{info.content}</p>
-                          <p className="text-sm text-gray-500">{info.description}</p>
+                          <p className="mb-1 text-gray-700">{info.content}</p>
+                          <p className="text-sm text-gray-500">
+                            {info.description}
+                          </p>
                         </div>
                       </div>
                     </CardContent>
@@ -254,8 +261,11 @@ export default function Contact() {
         viewport={{ once: true }}
         className="py-20 bg-gray-100"
       >
-        <div className="max-w-4xl mx-auto px-6 text-center mb-16">
-          <motion.h2 variants={fadeInUp} className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="max-w-4xl px-6 mx-auto mb-16 text-center">
+          <motion.h2
+            variants={fadeInUp}
+            className="mb-4 text-4xl font-bold text-gray-900"
+          >
             Frequently <span className="text-orange-500">Asked Questions</span>
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-lg text-gray-500">
@@ -263,7 +273,10 @@ export default function Contact() {
           </motion.p>
         </div>
 
-        <motion.div variants={staggerContainer} className="max-w-4xl mx-auto px-6 space-y-6">
+        <motion.div
+          variants={staggerContainer}
+          className="max-w-4xl px-6 mx-auto space-y-6"
+        >
           {[
             {
               q: "How long does a typical consulting project take?",
@@ -283,9 +296,9 @@ export default function Contact() {
             },
           ].map((faq, index) => (
             <motion.div key={index} variants={fadeInUp}>
-              <Card className="border-border shadow-sm hover:shadow-md transition-all duration-300">
+              <Card className="transition-all duration-300 shadow-sm border-border hover:shadow-md">
                 <CardContent className="p-6 text-left">
-                  <h3 className="font-semibold text-gray-900 mb-2">{faq.q}</h3>
+                  <h3 className="mb-2 font-semibold text-gray-900">{faq.q}</h3>
                   <p className="text-gray-500">{faq.a}</p>
                 </CardContent>
               </Card>
