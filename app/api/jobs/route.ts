@@ -4,15 +4,23 @@ import Job from "@/lib/models/Job";
 
 // GET all jobs
 export async function GET() {
-  await connectToDatabase();
-  const jobs = await Job.find().sort({ createdAt: -1 });
-  return NextResponse.json(jobs);
+  try {
+    await connectToDatabase();
+    const jobs = await Job.find().sort({ createdAt: -1 });
+    return NextResponse.json(jobs);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
 
 // POST new job
 export async function POST(request: Request) {
-  await connectToDatabase();
-  const data = await request.json();
-  const newJob = await Job.create(data);
-  return NextResponse.json(newJob);
+  try {
+    await connectToDatabase();
+    const data = await request.json();
+    const newJob = await Job.create(data);
+    return NextResponse.json(newJob, { status: 201 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }

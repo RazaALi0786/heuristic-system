@@ -8,6 +8,7 @@ import { Label } from "@/components/Label";
 import { Button } from "@/components/Button";
 import { Plus, Clipboard, Edit2, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
 /**
  * Admin Page - Job CRUD (in-memory)
@@ -61,6 +62,18 @@ export default function AdminPage() {
     requirements: "",
   });
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchJobs();
+    }
+  }, [isLoggedIn]);
+
+  async function fetchJobs() {
+    const res = await fetch("/api/jobs");
+    const data = await res.json();
+    setJobs(data);
+  }
+
   // Edit state
   const [editingJobId, setEditingJobId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<Job>>({});
@@ -84,60 +97,57 @@ export default function AdminPage() {
   };
 
   // ----- Add Job -----
-  const handleAddJob = (e: React.FormEvent) => {
+  const handleAddJob = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simple validation
     if (!newJob.title || !newJob.company || !newJob.city || !newJob.state) {
       alert("Please fill at least Title, Company, City and State.");
       return;
     }
 
-    const job: Job = {
-      id: generateJobId(),
-      title: newJob.title!.trim(),
-      company: newJob.company!.trim(),
-      department: newJob.department ?? "",
-      employmentType: newJob.employmentType ?? "Full-time",
-      city: newJob.city!.trim(),
-      state: newJob.state!.trim(),
-      country: newJob.country ?? "USA",
-      salaryRange: newJob.salaryRange ?? "",
-      experienceLevel: newJob.experienceLevel ?? "",
-      postedDate: new Date().toISOString().split("T")[0], // YYYY-MM-DD
-      apply: newJob.apply ?? "",
-      description: newJob.description ?? "",
-      responsibilities: newJob.responsibilities ?? "",
-      requirements: newJob.requirements ?? "",
+    const jobData = {
+      ...newJob,
+      postedDate: new Date(),
     };
 
-    setJobs((prev) => [job, ...prev]);
-    // reset form
-    setNewJob({
-      title: "",
-      company: "",
-      department: "",
-      employmentType: "Full-time",
-      city: "",
-      state: "",
-      country: "USA",
-      salaryRange: "",
-      experienceLevel: "",
-      apply: "",
-      description: "",
-      responsibilities: "",
-      requirements: "",
+    const res = await fetch("/api/jobs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(jobData),
     });
 
-    // If you want persistence: save to localStorage here
-    // localStorage.setItem("jobs", JSON.stringify([job, ...jobs]));
+    if (res.ok) {
+      const createdJob = await res.json();
+      setJobs((prev) => [createdJob, ...prev]);
+      setNewJob({
+        title: "",
+        company: "",
+        department: "",
+        employmentType: "Full-time",
+        city: "",
+        state: "",
+        country: "USA",
+        salaryRange: "",
+        experienceLevel: "",
+        apply: "",
+        description: "",
+        responsibilities: "",
+        requirements: "",
+      });
+    } else {
+      alert("Failed to create job");
+    }
   };
 
   // ----- Delete Job -----
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Delete this job? This action cannot be undone.")) return;
-    setJobs((prev) => prev.filter((j) => j.id !== id));
-    // update localStorage if using
+    const res = await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+    if (res.ok) {
+      setJobs((prev) => prev.filter((j) => j._id !== id));
+    } else {
+      alert("Failed to delete job");
+    }
   };
 
   // ----- Begin Edit -----
@@ -153,18 +163,26 @@ export default function AdminPage() {
   };
 
   // ----- Save Edit -----
-  const saveEdit = (e: React.FormEvent) => {
+  const saveEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingJobId) return;
 
-    setJobs((prev) =>
-      prev.map((j) =>
-        j.id === editingJobId ? { ...(j as Job), ...(editForm as Job) } : j
-      )
-    );
-    setEditingJobId(null);
-    setEditForm({});
-    // update localStorage if using
+    const res = await fetch(`/api/jobs/${editingJobId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(editForm),
+    });
+
+    if (res.ok) {
+      const updatedJob = await res.json();
+      setJobs((prev) =>
+        prev.map((j) => (j._id === editingJobId ? updatedJob : j))
+      );
+      setEditingJobId(null);
+      setEditForm({});
+    } else {
+      alert("Failed to update job");
+    }
   };
 
   return (

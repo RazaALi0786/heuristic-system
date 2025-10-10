@@ -9,9 +9,12 @@ const JobSchema = new Schema(
     salaryRange: String,
     experienceLevel: String,
     description: String,
+    responsibilities: String,
+    requirements: String,
+    apply: String,
     city: String,
     state: String,
-    location: String,
+    country: String,
     postedDate: { type: Date, default: Date.now },
   },
   { timestamps: true }

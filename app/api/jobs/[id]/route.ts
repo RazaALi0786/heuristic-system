@@ -2,23 +2,33 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Job from "@/lib/models/Job";
 
+// DELETE job by ID
 export async function DELETE(
-  req: Request,
+  _: Request,
   { params }: { params: { id: string } }
 ) {
-  await connectToDatabase();
-  await Job.findByIdAndDelete(params.id);
-  return NextResponse.json({ message: "Job deleted" });
+  try {
+    await connectToDatabase();
+    await Job.findByIdAndDelete(params.id);
+    return NextResponse.json({ message: "Job deleted" });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
 
+// PUT (Update job)
 export async function PUT(
-  req: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
-  await connectToDatabase();
-  const updatedData = await req.json();
-  const job = await Job.findByIdAndUpdate(params.id, updatedData, {
-    new: true,
-  });
-  return NextResponse.json(job);
+  try {
+    await connectToDatabase();
+    const data = await request.json();
+    const updatedJob = await Job.findByIdAndUpdate(params.id, data, {
+      new: true,
+    });
+    return NextResponse.json(updatedJob);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
