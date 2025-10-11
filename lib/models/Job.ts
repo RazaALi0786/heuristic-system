@@ -2,7 +2,6 @@ import mongoose, { Schema, models } from "mongoose";
 
 const JobSchema = new Schema(
   {
-    customId: { type: String, unique: true },
     title: String,
     company: String,
     department: String,
