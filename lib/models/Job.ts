@@ -2,6 +2,7 @@ import mongoose, { Schema, models } from "mongoose";
 
 const JobSchema = new Schema(
   {
+    customId: { type: String, unique: true },
     title: String,
     company: String,
     department: String,
@@ -9,8 +10,6 @@ const JobSchema = new Schema(
     salaryRange: String,
     experienceLevel: String,
     description: String,
-    responsibilities: String,
-    requirements: String,
     apply: String,
     city: String,
     state: String,

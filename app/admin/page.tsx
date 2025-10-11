@@ -9,6 +9,8 @@ import { Button } from "@/components/Button";
 import { Plus, Clipboard, Edit2, Trash2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
 
 /**
  * Admin Page - Job CRUD (in-memory)
@@ -20,7 +22,7 @@ import { useEffect } from "react";
  */
 
 type Job = {
-  id: string; // jobId
+  _id: string; // jobId
   title: string;
   company: string;
   department: string;
@@ -36,6 +38,8 @@ type Job = {
   responsibilities: string;
   requirements: string;
 };
+
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 export default function AdminPage() {
   // ----- Login -----
@@ -131,8 +135,6 @@ export default function AdminPage() {
         experienceLevel: "",
         apply: "",
         description: "",
-        responsibilities: "",
-        requirements: "",
       });
     } else {
       alert("Failed to create job");
@@ -140,11 +142,11 @@ export default function AdminPage() {
   };
 
   // ----- Delete Job -----
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (_id: string) => {
     if (!confirm("Delete this job? This action cannot be undone.")) return;
-    const res = await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/jobs/${_id}`, { method: "DELETE" });
     if (res.ok) {
-      setJobs((prev) => prev.filter((j) => j._id !== id));
+      setJobs((prev) => prev.filter((j) => j._id !== _id));
     } else {
       alert("Failed to delete job");
     }
@@ -152,7 +154,7 @@ export default function AdminPage() {
 
   // ----- Begin Edit -----
   const beginEdit = (job: Job) => {
-    setEditingJobId(job.id);
+    setEditingJobId(job._id);
     setEditForm({ ...job });
   };
 
@@ -429,40 +431,13 @@ export default function AdminPage() {
                   {/* Description / Responsibilities / Requirements */}
                   <div>
                     <Label>Job Description</Label>
-                    <Textarea
-                      placeholder="Write a concise summary of this role..."
+                    <ReactQuill
+                      theme="snow"
                       value={newJob.description}
-                      onChange={(e: any) =>
-                        setNewJob({ ...newJob, description: e.target.value })
+                      onChange={(content) =>
+                        setNewJob({ ...newJob, description: content })
                       }
-                      className="min-h-[110px]"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Responsibilities</Label>
-                    <Textarea
-                      placeholder="Bullet points or paragraphs of responsibilities"
-                      value={newJob.responsibilities}
-                      onChange={(e: any) =>
-                        setNewJob({
-                          ...newJob,
-                          responsibilities: e.target.value,
-                        })
-                      }
-                      className="min-h-[110px]"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Requirements</Label>
-                    <Textarea
-                      placeholder="List the must-have qualifications"
-                      value={newJob.requirements}
-                      onChange={(e: any) =>
-                        setNewJob({ ...newJob, requirements: e.target.value })
-                      }
-                      className="min-h-[110px]"
+                      className="bg-white rounded-md"
                     />
                   </div>
 
@@ -513,10 +488,10 @@ export default function AdminPage() {
               ) : (
                 <div className="grid gap-6 md:grid-cols-2">
                   {jobs.map((job) => {
-                    const isEditing = editingJobId === job.id;
+                    const isEditing = editingJobId === job._id;
                     return (
                       <Card
-                        key={job.id}
+                        key={job._id}
                         className="transition border border-gray-200 shadow-md rounded-xl hover:shadow-xl"
                       >
                         <CardHeader>
@@ -538,7 +513,7 @@ export default function AdminPage() {
                                 Posted: {job.postedDate}
                               </p>
                               <p className="mt-1 text-xs text-gray-400">
-                                ID: {job.id}
+                                ID: {job._id}
                               </p>
                             </div>
                           </div>
@@ -547,27 +522,14 @@ export default function AdminPage() {
                         <CardContent>
                           {!isEditing ? (
                             <>
-                              <p className="mb-3 text-sm text-gray-600">
-                                {job.description || "No description provided."}
-                              </p>
-
-                              <div className="mb-3">
-                                <strong className="text-sm text-gray-700">
-                                  Responsibilities
-                                </strong>
-                                <p className="mt-1 text-sm text-gray-600">
-                                  {job.responsibilities || "—"}
-                                </p>
-                              </div>
-
-                              <div className="mb-4">
-                                <strong className="text-sm text-gray-700">
-                                  Requirements
-                                </strong>
-                                <p className="mt-1 text-sm text-gray-600">
-                                  {job.requirements || "—"}
-                                </p>
-                              </div>
+                              <div
+                                className="mb-3 text-sm prose text-gray-600 max-w-none"
+                                dangerouslySetInnerHTML={{
+                                  __html:
+                                    job.description ||
+                                    "<p><em>No description provided.</em></p>",
+                                }}
+                              />
 
                               <div className="flex items-center gap-3">
                                 <Button
@@ -580,7 +542,7 @@ export default function AdminPage() {
 
                                 <Button
                                   className="flex items-center gap-2 px-4 py-1 text-white bg-red-600 rounded-lg hover:bg-red-700"
-                                  onClick={() => handleDelete(job.id)}
+                                  onClick={() => handleDelete(job._id)}
                                 >
                                   <Trash2 size={14} />
                                   Delete
@@ -659,15 +621,15 @@ export default function AdminPage() {
 
                               <div>
                                 <Label>Description</Label>
-                                <Textarea
+                                <ReactQuill
+                                  theme="snow"
                                   value={editForm.description as string}
-                                  onChange={(e: any) =>
+                                  onChange={(content) =>
                                     setEditForm({
                                       ...editForm,
-                                      description: e.target.value,
+                                      description: content,
                                     })
                                   }
-                                  className="min-h-[100px]"
                                 />
                               </div>
 
