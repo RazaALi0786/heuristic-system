@@ -541,7 +541,10 @@ export default function AdminPage() {
 
                                 <div className="text-right">
                                   <p className="text-sm text-gray-500">
-                                    Posted: {job.postedDate}
+                                    Posted:{" "}
+                                    {new Date(job.postedDate)
+                                      .toLocaleDateString("en-GB")
+                                      .replace(/\//g, "-")}
                                   </p>
                                   <p className="mt-1 text-xs text-gray-400">
                                     ID: {job._id}
