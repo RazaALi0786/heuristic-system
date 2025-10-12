@@ -12,15 +12,6 @@ import { useEffect } from "react";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
 
-/**
- * Admin Page - Job CRUD (in-memory)
- * Credentials: username: admin   password: admin123
- *
- * Notes:
- * - Everything is in-memory and resets on page reload.
- * - To persist across refreshes, save `jobs` to localStorage in handleAddJob / handleEdit / handleDelete.
- */
-
 type Job = {
   _id: string; // jobId
   title: string;
@@ -68,6 +59,11 @@ export default function AdminPage() {
   });
 
   useEffect(() => {
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn === "true") setIsLoggedIn(true);
+  }, []);
+
+  useEffect(() => {
     if (isLoggedIn) {
       fetchJobs();
     }
@@ -95,6 +91,7 @@ export default function AdminPage() {
     e.preventDefault();
     if (loginForm.username === "admin" && loginForm.password === "admin123") {
       setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true"); // ✅ persist login
       setLoginForm({ username: "", password: "" });
     } else {
       alert("Invalid credentials — try admin / admin123");
@@ -282,6 +279,7 @@ export default function AdminPage() {
                   className="text-white bg-orange-500 rounded-lg hover:bg-[#EA580C]"
                   onClick={() => {
                     setIsLoggedIn(false);
+                    localStorage.removeItem("isLoggedIn");
                   }}
                 >
                   Logout
@@ -743,7 +741,7 @@ function ContactMessages() {
             {messages.map((msg) => (
               <div
                 key={msg._id}
-                className="p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition"
+                className="p-4 transition border border-gray-200 rounded-lg shadow-sm hover:shadow-md"
               >
                 <div className="flex justify-between">
                   <div>
