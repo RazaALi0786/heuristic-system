@@ -1,22 +1,53 @@
-import { NextRequest, NextResponse } from "next/server";
-import { connectToDatabase } from "@/lib/mongodb";
-import Contact from "@/lib/models/Contact";
+// app/api/contact/[id]/route.ts
+import { NextResponse } from "next/server";
+import Contact from "@/models/contact";
+import mongoose from "mongoose";
 
+// Connect to MongoDB
+async function connectToDatabase() {
+  if (mongoose.connection.readyState === 0) {
+    await mongoose.connect(process.env.MONGODB_URI!);
+  }
+}
+
+// DELETE /api/contact/:id
 export async function DELETE(
-  req: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  req: Request,
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await context.params; // 👈 await the params (important)
   await connectToDatabase();
 
   try {
-    await Contact.findByIdAndDelete(id);
-    return NextResponse.json({ success: true, message: "Contact deleted" });
-  } catch (error) {
-    console.error("Delete failed:", error);
-    return NextResponse.json(
-      { success: false, message: "Failed to delete contact" },
-      { status: 500 }
-    );
+    const deleted = await Contact.findByIdAndDelete(params.id);
+    if (!deleted) {
+      return NextResponse.json(
+        { success: false, message: "Contact not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json({ success: true });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message || err });
+  }
+}
+
+// GET /api/contact/:id
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  await connectToDatabase();
+
+  try {
+    const contact = await Contact.findById(params.id);
+    if (!contact) {
+      return NextResponse.json(
+        { success: false, message: "Contact not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json({ success: true, contact });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message || err });
   }
 }
