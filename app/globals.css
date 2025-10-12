@@ -91,3 +91,20 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Fix Quill list styles */
+
+
+  .rich-text ol,
+  .ql-editor ol {
+    list-style-type: disc !important;
+    list-style-position: outside !important;
+    margin-left: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
+
+  .rich-text li,
+  .ql-editor li {
+    margin-bottom: 0.25rem;
+    list-style-type: decimal !important;
+  }

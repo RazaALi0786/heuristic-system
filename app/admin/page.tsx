@@ -554,7 +554,7 @@ export default function AdminPage() {
                               {!isEditing ? (
                                 <>
                                   <div
-                                    className="mb-3 text-sm prose text-gray-600 max-w-none"
+                                    className="mb-3 text-sm text-gray-600 rich-text max-w-none"
                                     dangerouslySetInnerHTML={{
                                       __html:
                                         job.description ||
