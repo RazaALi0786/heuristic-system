@@ -4,9 +4,9 @@ import Contact from "@/lib/models/Contact";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> } // TS expects a Promise here
 ) {
-  const { id } = params;
+  const { id } = await context.params; // await because TS thinks it's a Promise
 
   if (!id) {
     return NextResponse.json(
@@ -15,10 +15,10 @@ export async function DELETE(
     );
   }
 
-  await connectToDatabase();
-
   try {
+    await connectToDatabase();
     await Contact.findByIdAndDelete(id);
+
     return NextResponse.json({ success: true, message: "Contact deleted" });
   } catch (error) {
     console.error("Delete failed:", error);
