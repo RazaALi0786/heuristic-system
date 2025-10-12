@@ -52,7 +52,9 @@ const reviews = [
 
 export default function Home() {
   const router = useRouter();
-  const goToAbout = () => router.push("/jobs");
+  const goToJobs = () => router.push("/jobs");
+  const goToAbout = () => router.push("/about");
+  const goToContact = () => router.push("/contact");
 
   // --- Animation Variants ---
   const fadeInUp = {
@@ -118,6 +120,7 @@ export default function Home() {
             variants={staggerContainer}
           >
             <motion.button
+              onClick={goToJobs}
               variants={fadeInUp}
               whileHover={{
                 scale: 1.03,
@@ -126,12 +129,13 @@ export default function Home() {
               }}
               whileTap={{ scale: 0.98 }}
               className="bg-orange-500 w-[10rem] text-white px-6 py-3 rounded-lg shadow-md 
-              transition-all duration-300"
+              transition-all duration-300 cursor-pointer"
             >
               View Jobs
             </motion.button>
 
             <motion.button
+              onClick={goToAbout}
               variants={fadeInUp}
               whileHover={{
                 scale: 1.03,
@@ -139,7 +143,7 @@ export default function Home() {
                 transition: { duration: 0.3 },
               }}
               whileTap={{ scale: 0.98 }}
-              className="border border-gray-400 w-[10rem] text-gray-700 px-6 py-3 rounded-lg shadow-sm"
+              className="border border-gray-400 w-[10rem] text-gray-700 px-6 py-3 rounded-lg shadow-sm cursor-pointer"
             >
               Learn More
             </motion.button>
@@ -223,19 +227,20 @@ export default function Home() {
           className="flex flex-col gap-4 mt-8 sm:flex-row"
         >
           <motion.button
+            onClick={goToContact}
             whileHover={{ scale: 1.03, backgroundColor: "#EA580C" }}
             whileTap={{ scale: 0.98 }}
             className="bg-orange-500 w-[17rem] text-white px-6 py-3 rounded-lg shadow-md 
-              flex items-center justify-center gap-2"
+              flex items-center justify-center gap-2 cursor-pointer"
           >
             Start Your Transformation <MoveRight />
           </motion.button>
 
           <motion.button
-            onClick={goToAbout}
+            onClick={goToJobs}
             whileHover={{ scale: 1.03, backgroundColor: "#f9fafb" }}
             whileTap={{ scale: 0.98 }}
-            className="border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg shadow-sm"
+            className="border border-gray-400 w-[17rem] text-gray-700 px-6 py-3 rounded-lg shadow-sm cursor-pointer"
           >
             View Career Opportunities
           </motion.button>
