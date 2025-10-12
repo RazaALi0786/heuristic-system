@@ -13,18 +13,20 @@ async function connectToDatabase() {
 // DELETE /api/contact/:id
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } } // this is correct type
 ) {
   await connectToDatabase();
 
+  const { id } = params;
+
   try {
-    const deleted = await Contact.findByIdAndDelete(params.id);
-    if (!deleted) {
+    const deleted = await Contact.findByIdAndDelete(id);
+    if (!deleted)
       return NextResponse.json(
         { success: false, message: "Contact not found" },
         { status: 404 }
       );
-    }
+
     return NextResponse.json({ success: true });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message || err });
@@ -34,18 +36,20 @@ export async function DELETE(
 // GET /api/contact/:id
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } } // same here
 ) {
   await connectToDatabase();
 
+  const { id } = params;
+
   try {
-    const contact = await Contact.findById(params.id);
-    if (!contact) {
+    const contact = await Contact.findById(id);
+    if (!contact)
       return NextResponse.json(
         { success: false, message: "Contact not found" },
         { status: 404 }
       );
-    }
+
     return NextResponse.json({ success: true, contact });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message || err });
