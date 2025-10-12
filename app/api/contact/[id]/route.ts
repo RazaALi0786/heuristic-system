@@ -1,6 +1,6 @@
 // app/api/contact/[id]/route.ts
 import { NextResponse } from "next/server";
-import Contact from "@/models/contact";
+import Contact from "@/lib/models/Contact";
 import mongoose from "mongoose";
 
 // Connect to MongoDB
