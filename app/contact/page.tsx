@@ -25,12 +25,12 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -95,12 +95,12 @@ export default function Contact() {
   ];
 
   // ✨ Motion Variants
-  const fadeInUp = {
+  const fadeInUp: any = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
     },
   };
 
@@ -119,7 +119,7 @@ export default function Contact() {
       <motion.section
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         className="pt-20 pb-0 text-center bg-white"
       >
         <div className="px-6 mx-auto max-w-7xl">
@@ -216,8 +216,7 @@ export default function Contact() {
                   <motion.div variants={fadeInUp}>
                     <motion.button
                       type="submit"
-                      variant="hero"
-                      className="flex items-center justify-center w-full cursor-pointer bg-orange-500 px-4 py-2 text-white font-medium rounded-lg hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center justify-center w-full px-4 py-2 font-medium text-white bg-orange-500 rounded-lg cursor-pointer hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed"
                       disabled={isSubmitting}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}

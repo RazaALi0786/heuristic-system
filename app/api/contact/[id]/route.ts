@@ -1,35 +1,21 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Contact from "@/lib/models/Contact";
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params; // 👈 await the params (important)
+  await connectToDatabase();
+
   try {
-    await connectToDatabase();
-
-    const deleted = await Contact.findByIdAndDelete(params.id);
-
-    if (!deleted) {
-      return NextResponse.json(
-        { success: false, message: "Message not found" },
-        { status: 404 }
-      );
-    }
-
+    await Contact.findByIdAndDelete(id);
+    return NextResponse.json({ success: true, message: "Contact deleted" });
+  } catch (error) {
+    console.error("Delete failed:", error);
     return NextResponse.json(
-      { success: true, message: "Message deleted successfully" },
-      { status: 200 }
-    );
-  } catch (error: any) {
-    console.error("❌ Error deleting contact:", error);
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Failed to delete message",
-        error: error.message,
-      },
+      { success: false, message: "Failed to delete contact" },
       { status: 500 }
     );
   }

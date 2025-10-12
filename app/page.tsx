@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import ReusableCardGrid from "@/components/ReusableCardGrid";
 import ReviewCard from "@/components/ReviewCard";
 import { useRouter } from "next/navigation";
@@ -57,16 +57,16 @@ export default function Home() {
   const goToContact = () => router.push("/contact");
 
   // --- Animation Variants ---
-  const fadeInUp = {
+  const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as any },
     },
   };
 
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -87,7 +87,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as any }}
           className="relative z-10 flex flex-col items-center max-w-5xl px-4"
         >
           <motion.h1
