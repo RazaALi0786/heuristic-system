@@ -39,12 +39,12 @@ const JobCard = ({ jobs }) => {
               <div className="flex flex-wrap items-center gap-4 mt-3 text-gray-600 text-sm">
                 <div className="flex items-center gap-1">
                   <Dot size={22} className="text-gray-400" />
-                  <span className="font-medium">{job.department}</span>
+                  <span className="font-medium">Department : {job.department}</span>
                 </div>
 
                 <div className="flex items-center gap-1">
                   <Dot size={22} className="text-gray-400" />
-                  <span className="font-medium">{job.experienceLevel}</span>
+                  <span className="font-medium">Experience : {job.experienceLevel}</span>
                 </div>
               </div>
             </div>
