@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
-import Logo from "@/public/Logo_final.png";
+// Use the public URL path for assets in the `public/` folder instead of importing
+// them as modules. Importing from `public` can trigger webpack resolution errors.
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -24,8 +25,10 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center h-full">
           <Image
-            src={Logo}
+            src="/Logo_final.png"
             alt="Heuristic System Logo"
+            width={64}
+            height={64}
             className="h-full w-auto max-h-16 object-contain"
             priority
           />
