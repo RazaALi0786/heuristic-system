@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import Contact from "@/lib/models/Contact";
 
+// DELETE — remove a contact by id
 export async function DELETE(
   req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await context.params; // 👈 await the params (important)
+  const { id } = await context.params; // await the params Promise for type compatibility
   await connectToDatabase();
 
   try {
