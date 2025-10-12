@@ -1,16 +1,18 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI as string;
-
-if (!MONGODB_URI) {
-  throw new Error(
-    "⚠️ Please define the MONGODB_URI environment variable inside .env.local"
-  );
-}
-
 let cached = (global as any).mongoose || { conn: null, promise: null };
 
 export async function connectToDatabase() {
+  const MONGODB_URI = process.env.MONGODB_URI as string | undefined;
+
+  if (!MONGODB_URI) {
+    // Avoid throwing at import/build time. Throwing here makes it a runtime error
+    // only when an API route attempts to connect without configuration.
+    throw new Error(
+      "⚠️ Please define the MONGODB_URI environment variable inside .env.local"
+    );
+  }
+
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
