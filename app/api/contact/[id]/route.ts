@@ -4,26 +4,30 @@ import Contact from "@/lib/models/Contact";
 
 export async function DELETE(
   req: Request,
-  context: { params: Promise<{ id: string }> } // TS expects a Promise here
+  context: { params: Promise<{ id: string }> } // ✅ matches RouteHandlerConfig
 ) {
-  const { id } = await context.params; // await because TS thinks it's a Promise
-
-  if (!id) {
-    return NextResponse.json(
-      { success: false, message: "ID is required" },
-      { status: 400 }
-    );
-  }
-
   try {
+    const { id } = await context.params;
+
+    if (!id) {
+      return NextResponse.json(
+        { success: false, message: "ID is required" },
+        { status: 400 }
+      );
+    }
+
     await connectToDatabase();
     await Contact.findByIdAndDelete(id);
 
     return NextResponse.json({ success: true, message: "Contact deleted" });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Delete failed:", error);
     return NextResponse.json(
-      { success: false, message: "Failed to delete contact" },
+      {
+        success: false,
+        message: "Failed to delete contact",
+        error: error.message,
+      },
       { status: 500 }
     );
   }
