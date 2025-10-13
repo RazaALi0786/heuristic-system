@@ -4,25 +4,25 @@ import { Target, Users, Award, Lightbulb, Eye } from "lucide-react";
 export default function About() {
   const values = [
     {
-      icon: <Target className="h-10 w-10 text-orange-500" />,
+      icon: <Target className="w-10 h-10 text-orange-500" />,
       title: "Excellence",
       description:
         "Delivering exceptional results with attention to detail and a commitment to quality.",
     },
     {
-      icon: <Lightbulb className="h-10 w-10 text-orange-500" />,
+      icon: <Lightbulb className="w-10 h-10 text-orange-500" />,
       title: "Innovation",
       description:
         "Embracing cutting-edge technologies and creative solutions to solve challenges.",
     },
     {
-      icon: <Users className="h-10 w-10 text-orange-500" />,
+      icon: <Users className="w-10 h-10 text-orange-500" />,
       title: "Collaboration",
       description:
         "Partnering closely with clients to achieve shared success and sustainable growth.",
     },
     {
-      icon: <Award className="h-10 w-10 text-orange-500" />,
+      icon: <Award className="w-10 h-10 text-orange-500" />,
       title: "Integrity",
       description:
         "Operating with transparency, trust, and the highest ethical standards.",
@@ -37,13 +37,13 @@ export default function About() {
   ];
 
   return (
-    <div className="mx-auto py-20">
+    <div className="py-20 mx-auto">
       {/* Hero Section */}
-      <section className="text-center max-w-3xl mx-auto mb-16">
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+      <section className="max-w-3xl mx-auto mb-16 text-center">
+        <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-6xl">
           About <span className="text-orange-500">Heuristic System</span>
         </h1>
-        <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+        <p className="mb-6 text-lg leading-relaxed text-gray-700 md:text-xl">
           We are a leading consulting and technology solutions company dedicated
           to helping businesses navigate the complexities of digital
           transformation.
@@ -52,13 +52,13 @@ export default function About() {
 
       {/* Mission & Vision */}
       <section className="py-20 bg-gradient-to-b from-orange-50 to-white">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition p-10 text-center">
-            <Target className="h-14 w-14 text-orange-500 mx-auto mb-6" />
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+        <div className="grid grid-cols-1 gap-12 px-6 mx-auto max-w-7xl lg:grid-cols-2">
+          <div className="p-10 text-center transition bg-white border border-gray-200 shadow-lg rounded-2xl hover:shadow-xl">
+            <Target className="mx-auto mb-6 text-orange-500 h-14 w-14" />
+            <h3 className="mb-4 text-2xl font-semibold text-gray-900">
               Our Mission
             </h3>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed text-gray-600">
               To empower businesses of all sizes with innovative technology
               solutions that drive growth, enhance efficiency, and create
               sustainable competitive advantages in an ever-evolving digital
@@ -66,12 +66,12 @@ export default function About() {
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition p-10 text-center">
-            <Eye className="h-14 w-14 text-orange-500 mx-auto mb-6" />
-            <h3 className="text-2xl font-semibold text-gray-900 mb-4">
+          <div className="p-10 text-center transition bg-white border border-gray-200 shadow-lg rounded-2xl hover:shadow-xl">
+            <Eye className="mx-auto mb-6 text-orange-500 h-14 w-14" />
+            <h3 className="mb-4 text-2xl font-semibold text-gray-900">
               Our Vision
             </h3>
-            <p className="text-gray-600 text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed text-gray-600">
               To be the leading technology consulting partner that transforms
               businesses worldwide, creating a future where innovation and
               strategic thinking drive unprecedented success.
@@ -82,22 +82,22 @@ export default function About() {
 
       {/* Values Section */}
       <section className="py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
+        <div className="mb-16 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
             Our <span className="text-orange-500">Core Values</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="max-w-2xl mx-auto text-lg text-gray-600">
             The principles that guide our work and define our commitment to
             excellence
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 gap-10 px-6 mx-auto sm:grid-cols-2 lg:grid-cols-4 max-w-7xl">
           {/* {values.map((value, index) => (
             <div
               key={index}
-              className="flex flex-col items-center text-center p-8 bg-white shadow-lg rounded-2xl hover:shadow-xl transition-shadow group border border-1px border-gray-300 hover:border-orange-200 transition"
+              className="flex flex-col items-center p-8 text-center transition transition-shadow bg-white border border-gray-300 shadow-lg rounded-2xl hover:shadow-xl group border-1px hover:border-orange-200"
             >
-              <div className="flex justify-center mb-4 transform transition-transform duration-300 group-hover:scale-110">
+              <div className="flex justify-center mb-4 transition-transform duration-300 transform group-hover:scale-110">
                 {value.icon}
               </div>
               <h3 className="my-3 text-xl font-semibold text-gray-600">
@@ -112,25 +112,25 @@ export default function About() {
 
       {/* Achievements Section */}
       <section className="py-20 bg-white">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
             Our <span className="text-orange-500">Achievements</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="max-w-2xl mx-auto text-lg text-gray-600">
             Numbers that reflect our commitment to delivering exceptional
             results
           </p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10 text-center max-w-6xl mx-auto px-6">
+        <div className="grid max-w-6xl grid-cols-2 gap-10 px-6 mx-auto text-center sm:grid-cols-2 md:grid-cols-4">
           {achievements.map((item, index) => (
             <div
               key={index}
-              className="p-6 rounded-xl bg-white shadow-md border border-gray-200 hover:shadow-lg transition"
+              className="p-6 transition bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg"
             >
-              <span className="text-4xl md:text-5xl font-extrabold text-orange-500">
+              <span className="text-4xl font-extrabold text-orange-500 md:text-5xl">
                 {item.number}
               </span>
-              <p className="mt-2 text-gray-700 font-medium">{item.label}</p>
+              <p className="mt-2 font-medium text-gray-700">{item.label}</p>
             </div>
           ))}
         </div>
@@ -138,18 +138,18 @@ export default function About() {
 
       {/* Our Story */}
       <section className="py-20 bg-gray-100">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+        <div className="max-w-4xl px-4 mx-auto sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">
               Our <span className="text-orange-500">Story</span>
             </h2>
           </div>
-          <div className="text-gray-600 text-lg leading-relaxed space-y-6 text-center md:text-left">
+          <div className="space-y-6 text-lg leading-relaxed text-center text-gray-600 md:text-left">
             <p>
-              Founded in 2014, Heuristic System emerged from a simple yet
-              powerful belief: that every business, regardless of size or
-              industry, deserves access to world-class technology consulting
-              that drives meaningful transformation.
+              Heuristic System emerged from a simple yet powerful belief: that
+              every business, regardless of size or industry, deserves access to
+              world-class technology consulting that drives meaningful
+              transformation.
             </p>
             <p>
               Our journey began when our founders, seasoned technology
