@@ -89,7 +89,10 @@ export default function AdminPage() {
   // ----- Login handler -----
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginForm.username === "admin" && loginForm.password === "admin123") {
+    if (
+      loginForm.username === "Pilot2025" &&
+      loginForm.password === "PilotHeuristicSystemConsultancy@2025"
+    ) {
       setIsLoggedIn(true);
       localStorage.setItem("isLoggedIn", "true"); // ✅ persist login
       setLoginForm({ username: "", password: "" });
@@ -197,7 +200,6 @@ export default function AdminPage() {
             transition={{ duration: 0.4 }}
             className="flex items-center justify-center min-h-screen"
           >
-            {" "}
             <Card className="w-full max-w-md bg-white border border-gray-200 shadow-xl rounded-xl">
               <CardHeader>
                 <CardTitle className="text-xl font-bold text-center text-gray-800">
@@ -236,7 +238,7 @@ export default function AdminPage() {
                     >
                       Login
                     </Button>
-                    <Button
+                    {/* <Button
                       type="button"
                       className="flex-1 text-gray-700 bg-white border border-gray-200 rounded-lg"
                       onClick={() => {
@@ -248,13 +250,13 @@ export default function AdminPage() {
                       }}
                     >
                       Fill
-                    </Button>
+                    </Button> */}
                   </div>
 
-                  <p className="text-sm text-gray-500">
+                  {/* <p className="text-sm text-gray-500">
                     Hardcoded credentials for demo:{" "}
                     <strong>admin / admin123</strong>
-                  </p>
+                  </p> */}
                 </form>
               </CardContent>
             </Card>
@@ -363,8 +365,12 @@ export default function AdminPage() {
                         </div>
 
                         <div>
-                          <Label>Employment Type</Label>
+                          <Label htmlFor="employmentType">
+                            Employment Type
+                          </Label>
                           <select
+                            id="employmentType"
+                            aria-label="Employment Type"
                             value={newJob.employmentType}
                             onChange={(e: any) =>
                               setNewJob({

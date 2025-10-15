@@ -20,8 +20,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-200 sticky top-0 z-50 h-20">
-      <div className="w-full h-full flex justify-between items-center px-6 md:px-10">
+    <nav className="sticky top-0 z-50 h-20 bg-white border-b border-gray-200 shadow-md">
+      <div className="flex items-center justify-between w-full h-full px-6 md:px-10">
         {/* Logo */}
         <Link href="/" className="flex items-center h-full">
           <Image
@@ -29,13 +29,13 @@ export default function Navbar() {
             alt="Heuristic System Logo"
             width={64}
             height={64}
-            className="h-full w-auto max-h-16 object-contain"
+            className="object-contain w-auto h-9 max-h-16"
             priority
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex space-x-8 text-gray-700 font-medium">
+        <div className="hidden space-x-8 font-medium text-gray-700 md:flex">
           {navigation.map((item) => {
             const isActive = pathname === item.href;
             return (
@@ -57,7 +57,7 @@ export default function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-gray-700 focus:outline-none"
+          className="text-gray-700 md:hidden focus:outline-none"
         >
           {menuOpen ? <X size={26} /> : <Menu size={26} />}
         </button>
@@ -65,8 +65,8 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 shadow-sm">
-          <div className="flex flex-col items-center space-y-4 py-4 text-gray-700 font-medium">
+        <div className="bg-white border-t border-gray-200 shadow-sm md:hidden">
+          <div className="flex flex-col items-center py-4 space-y-4 font-medium text-gray-700">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               return (

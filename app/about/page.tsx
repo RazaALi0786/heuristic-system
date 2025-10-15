@@ -1,5 +1,8 @@
+"use client";
 import ReusableCardGrid from "@/components/ReusableCardGrid";
 import { Target, Users, Award, Lightbulb, Eye } from "lucide-react";
+import { motion } from "framer-motion";
+import CountUp from "react-countup";
 
 export default function About() {
   const values = [
@@ -34,6 +37,20 @@ export default function About() {
     { number: "150+", label: "Happy Clients" },
     { number: "10+", label: "Years Experience" },
     { number: "98%", label: "Client Satisfaction" },
+  ];
+
+  const clients = [
+    "Adobe",
+    "AIG",
+    "UnitedHealth Group",
+    "AmFam",
+    "USAA",
+    "CVS Health",
+    "Freddie Mac",
+    "UPS",
+    "Amtrak",
+    "ABB Automation",
+    "Parker Aerospace",
   ];
 
   return (
@@ -92,20 +109,6 @@ export default function About() {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-10 px-6 mx-auto sm:grid-cols-2 lg:grid-cols-4 max-w-7xl">
-          {/* {values.map((value, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center p-8 text-center transition transition-shadow bg-white border border-gray-300 shadow-lg rounded-2xl hover:shadow-xl group border-1px hover:border-orange-200"
-            >
-              <div className="flex justify-center mb-4 transition-transform duration-300 transform group-hover:scale-110">
-                {value.icon}
-              </div>
-              <h3 className="my-3 text-xl font-semibold text-gray-600">
-                {value.title}
-              </h3>
-              <p className="mt-2 text-gray-800">{value.description}</p>
-            </div>
-          ))} */}
           <ReusableCardGrid values={values} />
         </div>
       </section>
@@ -121,6 +124,7 @@ export default function About() {
             results
           </p>
         </div>
+
         <div className="grid max-w-6xl grid-cols-2 gap-10 px-6 mx-auto text-center sm:grid-cols-2 md:grid-cols-4">
           {achievements.map((item, index) => (
             <div
@@ -128,11 +132,91 @@ export default function About() {
               className="p-6 transition bg-white border border-gray-200 shadow-md rounded-xl hover:shadow-lg"
             >
               <span className="text-4xl font-extrabold text-orange-500 md:text-5xl">
-                {item.number}
+                <CountUp
+                  end={parseFloat(item.number)} // safely handles "500+", "98%", etc.
+                  duration={3}
+                  suffix={
+                    item.number.includes("+")
+                      ? "+"
+                      : item.number.includes("%")
+                      ? "%"
+                      : ""
+                  }
+                />
               </span>
               <p className="mt-2 font-medium text-gray-700">{item.label}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Clients Carousel */}
+      <section className="py-20 bg-orange-50">
+        <div className="mb-12 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 md:text-5xl">
+            Our <span className="text-orange-500">Clients</span>
+          </h2>
+          <p className="max-w-2xl mx-auto mt-4 text-lg text-gray-600">
+            Trusted by industry leaders and global enterprises
+          </p>
+        </div>
+
+        <div className="relative overflow-hidden">
+          <motion.div
+            className="flex items-center gap-12 w-max"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              ease: "linear",
+              duration: 40,
+              repeat: Infinity,
+            }}
+          >
+            {[
+              "AbbLogo.png",
+              "AdobeLogo.png",
+              "AigLogo.png",
+              "AmFamLogo.png",
+              "AmtrakLogo.png",
+              "CvsLogo.png",
+              "FreddieMacLogo.png",
+              "PhLogo.png",
+              "UnitedHealthLogo.png",
+              "UpsLogo.png",
+              "UsaaLogo.png",
+            ]
+              // ✅ Duplicate logos once for smooth loop
+              .concat([
+                "AbbLogo.png",
+                "AdobeLogo.png",
+                "AigLogo.png",
+                "AmFamLogo.png",
+                "AmtrakLogo.png",
+                "CvsLogo.png",
+                "FreddieMacLogo.png",
+                "PhLogo.png",
+                "UnitedHealthLogo.png",
+                "UpsLogo.png",
+                "UsaaLogo.png",
+              ])
+              .map((logo, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg w-[180px] h-[100px] flex items-center justify-center transition hover:scale-105"
+                >
+                  <div className="flex items-center justify-center w-full h-full p-4">
+                    <img
+                      src={`/clients/${logo}`}
+                      alt={logo.replace(/[-_]/g, " ").replace(/\..+$/, "")}
+                      className="object-contain w-full h-full max-h-12"
+                    />
+                  </div>
+                </div>
+              ))}
+          </motion.div>
+
+          {/* Optional: Fade edges for a polished effect */}
+          <div className="absolute inset-y-0 left-0 w-16 pointer-events-none bg-gradient-to-r from-orange-50 to-transparent" />
+          <div className="absolute inset-y-0 right-0 w-16 pointer-events-none bg-gradient-to-l from-orange-50 to-transparent" />
         </div>
       </section>
 

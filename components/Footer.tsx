@@ -22,8 +22,10 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/company/heuristic-system/"
                 aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-600 hover:text-orange-500 transition-smooth"
               >
                 <Linkedin className="w-5 h-5" />
@@ -83,14 +85,14 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-gray-600">
                 <Mail className="w-4 h-4" />
-                <span>pritiusa4@gmail.com</span>
+                <span>info@heuristicsystem.com</span>
               </li>
               <li className="flex items-center space-x-2 text-gray-600">
                 <Phone className="w-4 h-4" />
                 <span>+1.7329642870</span>
               </li>
               <li className="flex items-center space-x-2 text-gray-600">
-                <MapPin className="w-4 h-4" />
+                <MapPin className="w-9 h-9" />
                 <span>
                   Organizat Edison New Jersey, USA, New Jersy, New Jersey,
                   United States 08817

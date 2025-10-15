@@ -71,7 +71,7 @@ export default function Contact() {
     {
       icon: <Mail className="w-6 h-6 text-orange-500" />,
       title: "Email Us",
-      content: "contact@heuristicsystem.com",
+      content: "info@heuristicsystem.com",
       description: "Send us an email anytime",
     },
     {

@@ -31,22 +31,22 @@ const reviews = [
     rating: 5,
     description:
       "Heuristic System transformed our operations completely. Their expertise in digital transformation helped us increase efficiency by 300%.",
-    name: "Sarah Johnson",
-    position: "CEO, TechFlow Inc.",
+    name: "Arjan Dhillon",
+    position: "Product Strategy Manager @ Meta",
   },
   {
     rating: 4,
     description:
       "Working with Heuristic System was seamless. Their team understood our requirements quickly and delivered a scalable solution that boosted our customer engagement.",
-    name: "Michael Lee",
-    position: "Product Manager, InnovateX",
+    name: "Kamil Mysliwiec",
+    position: "Creator - NestJS",
   },
   {
     rating: 5,
     description:
       "The dedication and professionalism shown by Heuristic System were outstanding. They exceeded our expectations and delivered results ahead of schedule.",
-    name: "Priya Sharma",
-    position: "CTO, Nexora Solutions",
+    name: "Sreenivas Gouraram ",
+    position: "Vice President - CNA Insurance",
   },
 ];
 
