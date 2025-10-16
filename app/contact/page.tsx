@@ -77,13 +77,14 @@ export default function Contact() {
     {
       icon: <Phone className="w-6 h-6 text-orange-500" />,
       title: "Call Us",
-      content: "+1 (555) 123-4567",
+      content: "+1.7329642870",
       description: "Mon-Fri from 8am to 5pm",
     },
     {
       icon: <MapPin className="w-6 h-6 text-orange-500" />,
       title: "Visit Us",
-      content: "123 Tech Street, Innovation City, IC 12345",
+      content:
+        "Organizat Edison New Jersey, USA, New Jersy, New Jersey, United States 08817",
       description: "Our headquarters",
     },
     {
